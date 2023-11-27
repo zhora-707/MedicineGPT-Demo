@@ -69,11 +69,16 @@ class ChatWrapper:
 
 chat = ChatWrapper()
 
-block = gr.Blocks(css=".gradio-container {background-color: lightgray}")
+#block = gr.Blocks(css=".gradio-container {background-color: lightgray}")
+
+# Add custom CSS to style the Gradio interface components
+
+block = gr.Blocks(css=".gradio-interface {background-color: transparent;} .gradio-interface input, .gradio-interface button {border-color: #ccc;}")
+
 
 with block:
     with gr.Row():
-        gr.Markdown("<h3><center>LangChain Demo</center></h3>")
+        gr.Markdown("<h3><center>MedicineGPT</center></h3>")
 
         openai_api_key_textbox = gr.Textbox(
             placeholder="Paste your OpenAI API key (sk-...)",
@@ -88,8 +93,6 @@ with block:
             bubble_full_width=False,
             avatar_images=(None, (os.path.join(os.path.dirname(__file__), "avatar.png"))),
         )
-
-
     with gr.Row():
         message = gr.Textbox(
                 scale=4,
@@ -105,7 +108,9 @@ with block:
         examples=[
             "Can I get some medicine recomendations?",
             "What should I do tonight?",
-            "Is eveything serious?",
+            "Is everything serious?",
+            "I have a headache!",
+            "I feel like I have a fever"
         ],
         inputs=message,
     )
@@ -113,7 +118,8 @@ with block:
     gr.HTML("Demo application of a MedGPT")
 
     gr.HTML(
-        "<center>Powered by <img src='/Users/zhorastepanyan/PycharmProjects/chatbot_demo/logo.jpg' alt='Image from Mac'>MedGPT🔗</img></center>"
+        "<center>Powered by <img src='https://raw.githubusercontent.com/zhora-707/MedicineGPT-Demo/main/logo.jpg' "
+        "alt='MedGPT Logo'>MedGPT🔗</img></center>"
     )
 
     state = gr.State()
@@ -129,6 +135,8 @@ with block:
         inputs=[openai_api_key_textbox],
         outputs=[agent_state],
     )
+
+
 
 block.launch(debug=True)
 
